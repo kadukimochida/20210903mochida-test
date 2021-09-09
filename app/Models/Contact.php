@@ -14,11 +14,5 @@ class Contact extends Model
 
     protected $fillable = ['fullname','gender','email','postcode','address','building_name','opinion'];
 
-    public static $rules = array(
-        'lastname' => 'required',
-        'firstname' => 'required',
-        'email' => 'required|email',
-        'address' => 'required',
-        'opinion' =>'required|max:120',
-    );
+    
 }

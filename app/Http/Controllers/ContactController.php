@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use App\Rules\ContactRule;
 
@@ -14,9 +15,9 @@ class ContactController extends Controller
     }
 
 
-    public function confirm(Request $request)
+    public function confirm(ContactRequest $request)
     {
-        $this->validate($request,Contact::$rules);
+        
         $request->validate([
             'postcode' => ['required',new ContactRule()],
         ]);

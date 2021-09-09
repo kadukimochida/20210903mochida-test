@@ -29,6 +29,11 @@
     font-weight: bold;
     width: 150px;
   }
+  .gender p {
+    display: inline-block;
+    font-weight: bold;
+    margin: 16px;
+  }
 
   .gender .ttl {
     margin-left: 20px;
@@ -92,7 +97,8 @@
 
   .opinion {
     text-align: left;
-    width: 445px;  
+    width: 40ch;  
+    
     white-space: nowrap;  
     overflow: hidden;
     text-overflow: ellipsis; 
@@ -143,38 +149,95 @@
     display: inline-block;
     margin-left: 80px;
   }
+
+  
+ /*ラジオボタン */
+  
+  input[type=radio] {
+    display: none;
+  }
+  .radio {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 50px;
+    position: relative;
+    width: auto;
+    margin-top: 10px;
+  }
+
+  .radio::before {
+    background: #fff;
+    border: 1px solid #231815;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 40px;
+    left: 5px;
+    margin-top: -8px;
+    position: absolute;
+    top: ;
+    width: 40px;
+  }
+  
+  .radio::after {
+    background: black;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 12px;
+    left: 20px;
+    margin-top: -4px;
+    opacity: 0;
+    position: absolute;
+    top: 40%;
+    width: 12px;
+  }
+
+  input[type=radio]:checked + .radio::after {
+    opacity: 1;
+  }
+  input[type=submit]:hover {
+    cursor: pointer;
+  }
 </style>
 
+<!--  search form  -->
 @section('content')
 <h1>管理システム</h1>
 <div class="search">
   <form action="/search" method="get">
   @csrf
     <div class="name-gender">
+      <!--  name  -->
       <div class="name">
         <p class="ttl">お名前</p>
         <input class="text" type="text" name="name" value="{{$input['_name']}}">
       </div>
+      <!--  gender  -->
       <div class="gender">
-        <p class="ttl">性別</p>
-        <input type="radio" name="gender" value="" checked>
-        <p>全て</p>
-        <input type="radio" name="gender" value="1">
-        <p>男性</p>
-        <input type="radio" name="gender" value="2">
-        <p>女性</p>
+        <p>性別</p>
+        <input type="radio" id="all" name="gender" value="" checked>
+        <label class="radio" for="all">全て</label>
+        <input type="radio" id="men" name="gender" value="1">
+        <label class="radio" for="men">男性</label>
+        <input type="radio" id="women" name="gender" value="2">
+        <label class="radio" for="women">女性</label>
       </div>
     </div>
+    <!--  createdat form  -->
     <div class="created-at">
       <p class="ttl">登録日</p>
       <input class="text" type="date" name="start" value="{{$input['_start']}}" pattern="\d{4}-\d{2}-\d{2}">
       <p>〜</p>
       <input class="text" type="date" name="end" value="{{$input['_end']}}" pattern="\d{4}-\d{2}-\d{2}">
     </div>
+    <!--  email  -->
     <div class="email">
       <p class="ttl">メールアドレス</p>
       <input class="text" type="email" name="email" value="{{$input['_email']}}">
     </div>
+    <!--  search  & reset  -->
     <div class="button">
       <input class="submit" type="submit" value="検索">
       <a class="reset" href="{{url('/find')}}">リセット</a>
@@ -183,7 +246,7 @@
 </div>
 
 
-
+<!--  results table   -->
 <div class="results">
 @if(@isset($data) && count($data) > 0)
 <p class="data-number">全{{$data->total()}}件中
@@ -192,6 +255,7 @@
 </p>
 @endif
   <table>
+    <!--  title  -->
     <tr class="results-ttl">
       <th class="ttl-id">ID</th>
       <th class="ttl-name">お名前</th>
@@ -200,6 +264,7 @@
       <th class="ttl-opinion">ご意見</th>
       <th class="ttl-delete"></th>
     </tr>
+    <!--  search results  -->
     @if(@isset($data))
     @foreach($data as $item)
     <tr>
@@ -215,7 +280,8 @@
       <td>
         <form action="/delete/{{$item->id}}" method="post">
         @csrf
-        <input type="submit" class="delete" value="削除">
+          <input type="submit" class="delete" value="削除">
+        </form>
       </td>
     </tr>
     @endforeach
