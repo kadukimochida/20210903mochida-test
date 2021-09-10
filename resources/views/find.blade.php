@@ -89,6 +89,7 @@
     border-bottom: solid 1px black;
   }
 
+
   td p {
     text-align: center;
     margin: 0;
@@ -150,7 +151,7 @@
     margin-left: 80px;
   }
 
-  
+
  /*ラジオボタン */
   
   input[type=radio] {

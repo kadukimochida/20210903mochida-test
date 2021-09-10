@@ -31,7 +31,7 @@ class ContactRequest extends FormRequest
         'lastname' => 'required',
         'firstname' => 'required',
         'email' => 'required|email',
-        'postcode' => 'required',
+        'postcode' => 'required | max:8',
         'address' => 'required',
         'opinion' =>'required|max:120',
         ];
@@ -45,6 +45,7 @@ class ContactRequest extends FormRequest
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => 'メールアドレスの形式で入力してください',
             'postcode.required' => '郵便番号を入力してください',
+            'postcode.max' => '8文字で入力してください',
             'address.required' => '住所を入力してください',
             'opinion.required' => 'お問い合わせ内容を入力してください'
         ];

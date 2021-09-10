@@ -29,7 +29,7 @@
 
   .form-content {
     width: 50%;
-    height: 100px;
+    
     display: flex;
   }
 
@@ -295,7 +295,7 @@
 </form>
 
 <script>
-  
+
 const $form = document.getElementById('form');
 $form.addEventListener('change',update);
 $form.addEventListener('input',update);
